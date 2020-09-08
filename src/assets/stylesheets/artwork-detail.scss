@@ -10,6 +10,7 @@
     pointer-events: auto;
     transform: translateX(100%);
     transition: ease .15s transform;
+    overflow: auto;
 
     &[data-is-show="true"]{
         transform: translateX(0);   

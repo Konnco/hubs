@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../assets/stylesheets/artwork-detail.scss";
+import { proxiedUrlFor } from "../utils/media-url-utils";
 
 export default class ArtworkDetail extends Component {
   static propTypes = {};
@@ -20,6 +21,7 @@ export default class ArtworkDetail extends Component {
   }
 
   updateData(data) {
+    console.log("reach the observer", data);
     const parsedJson = JSON.parse(data.detail);
     this.setState({ ...parsedJson, show: true });
   }
@@ -29,7 +31,7 @@ export default class ArtworkDetail extends Component {
   }
 
   formatSize(value) {
-    return (Math.round(value * 10) / 10) * 10;
+    return (Math.round(value * 10) / 10) * 100;
   }
 
   openLinkHandler() {
@@ -46,7 +48,7 @@ export default class ArtworkDetail extends Component {
             <div className="detail-artworks__close" onClick={this.closeHandler}>
               X
             </div>
-            <img src={this.state.src} className="detail-artworks__image-src" />
+            <img src={proxiedUrlFor(this.state.src || "")} className="detail-artworks__image-src" />
           </div>
           <div className="detail-artworks__title">{this.state.title}</div>
           <div className="detail-artworks__artist">By {this.state.artist}</div>

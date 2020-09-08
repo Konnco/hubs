@@ -404,6 +404,7 @@ AFRAME.registerComponent("artwork-show-detail-button", {
   init() {
     this.onClick = async () => {
       if (this.targetEl) {
+        console.log("Artwork Clicked");
         // this.targetEl.components["artwork"].data;
         // console.log(this.targetEl.components["artwork"].data);
         const data = JSON.stringify(this.targetEl.components["artwork"].data);
