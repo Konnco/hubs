@@ -151,13 +151,6 @@ errorImage.onload = () => {
 };
 const errorCacheItem = { texture: errorTexture, ratio: 1 };
 
-function scaleToAspectRatio(el, ratio) {
-  const width = Math.min(1.0, 1.0 / ratio);
-  const height = Math.min(1.0, ratio);
-  el.object3DMap.mesh.scale.set(width, height, 1);
-  el.object3DMap.mesh.matrixNeedsUpdate = true;
-}
-
 const fetchContentType = url => {
   return fetch(url, { method: "HEAD" }).then(r => r.headers.get("content-type"));
 };
@@ -166,10 +159,10 @@ const fetchContentType = url => {
 AFRAME.registerComponent("artwork", {
   schema: {
     src: { type: "string" },
-    // version: { type: "number" },
-    // projection: { type: "string", default: "flat" },
-    contentType: { type: "string" }
-    // batch: { default: false }
+    contentType: { type: "string" },
+    width: { type: "number" },
+    height: { type: "number" },
+    title: { type: "string" }
   },
 
   remove() {
@@ -183,11 +176,13 @@ AFRAME.registerComponent("artwork", {
   },
 
   async update(oldData) {
+    console.log(this.data);
+    // Added Link Hover Menu
+    this.el.setAttribute("hover-menu__link", { template: "#artwork-hover-menu", isFlat: true });
+
     let texture;
-    let ratio = 1;
 
     const batchManagerSystem = this.el.sceneEl.systems["hubs-systems"].batchManagerSystem;
-
     try {
       const { src } = this.data;
 
@@ -286,14 +281,14 @@ AFRAME.registerComponent("artwork", {
       }
 
       texture = cacheItem.texture;
-      ratio = cacheItem.ratio;
-
       this.currentSrcIsRetained = true;
     } catch (e) {
       console.error("Error loading image", this.data.src, e);
       texture = errorTexture;
       this.currentSrcIsRetained = false;
     }
+
+    console.log(this.data.src);
 
     const projection = this.data.projection;
 
@@ -332,6 +327,6 @@ AFRAME.registerComponent("artwork", {
       batchManagerSystem.addObject(this.mesh);
     }
 
-    this.el.emit("image-loaded", { src: this.data.src, projection: projection });
+    this.el.emit("artwork-loaded", { src: this.data.src });
   }
 });

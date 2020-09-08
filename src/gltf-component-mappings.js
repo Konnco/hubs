@@ -389,4 +389,60 @@ AFRAME.GLTFModelPlus.registerComponent("audio-settings", "audio-settings", (el, 
 });
 
 // Artwork
-AFRAME.GLTFModelPlus.registerComponent("artwork", "artwork");
+AFRAME.GLTFModelPlus.registerComponent("artwork", "artwork", (el, componentName, componentData, components) => {
+  el.setAttribute("networked", {
+    template: "#static-artwork",
+    owner: "scene",
+    persistent: true,
+    networkId: components.networked.id
+  });
+
+  el.setAttribute(componentName, componentData);
+});
+
+AFRAME.registerComponent("artwork-show-detail-button", {
+  init() {
+    this.onClick = async () => {
+      if (this.targetEl) {
+        // this.targetEl.components["artwork"].data;
+        // console.log(this.targetEl.components["artwork"].data);
+        const data = JSON.stringify(this.targetEl.components["artwork"].data);
+        window.dispatchEvent(new CustomEvent("view-artwork", { detail: data }));
+        // this.targetEl.components["media-loader"] &&
+        //   this.targetEl.components["media-loader"].update(this.targetEl.components["media-loader"].data, true);
+      }
+    };
+
+    NAF.utils
+      .getNetworkedEntity(this.el)
+      .then(networkedEl => {
+        // console.log(networkedEl);
+        this.targetEl = networkedEl;
+        //     const isNonLiveVideo =
+        //       this.targetEl.components["media-video"] && this.targetEl.components["media-video"].videoIsLive === false;
+        //     const src =
+        //       (this.targetEl.components["media-loader"] && this.targetEl.components["media-loader"].data.src) || "";
+        //     const shouldHaveLocalRefreshButton = !isNonLiveVideo && src.indexOf("twitch.tv") !== -1;
+        //     if (!shouldHaveLocalRefreshButton) {
+        //       this.el.parentNode.removeChild(this.el);
+        //     } else {
+        //       const onVideoIsLiveUpdate = e => {
+        //         if (!e.detail.videoIsLive) {
+        //           this.targetEl.removeEventListener("video_is_live_update", onVideoIsLiveUpdate);
+        //           this.el.parentNode.removeChild(this.el);
+        //         }
+        //       };
+        //       this.targetEl.addEventListener("video_is_live_update", onVideoIsLiveUpdate);
+      })
+      .catch(() => {
+        this.el.parentNode.removeChild(this.el);
+      });
+  },
+  play() {
+    this.el.object3D.addEventListener("interact", this.onClick);
+  },
+
+  pause() {
+    this.el.object3D.removeEventListener("interact", this.onClick);
+  }
+});

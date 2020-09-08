@@ -26,6 +26,7 @@ class Loader extends Component {
     this.props.scene.addEventListener("pdf-loading", this.onObjectLoading);
     this.props.scene.addEventListener("model-loaded", this.onObjectLoaded);
     this.props.scene.addEventListener("image-loaded", this.onObjectLoaded);
+    this.props.scene.addEventListener("artwork-loaded", this.onObjectLoaded);
     this.props.scene.addEventListener("pdf-loaded", this.onObjectLoaded);
     this.props.scene.addEventListener("model-error", this.onObjectLoaded);
     this.props.scene.addEventListener(
@@ -46,6 +47,7 @@ class Loader extends Component {
     this.props.scene.removeEventListener("image-loaded", this.onObjectLoaded);
     this.props.scene.removeEventListener("pdf-loaded", this.onObjectLoaded);
     this.props.scene.removeEventListener("model-error", this.onObjectLoaded);
+    this.props.scene.removeEventListener("artwork-loaded", this.onObjectLoaded);
   }
 
   onObjectLoading = () => {

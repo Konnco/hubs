@@ -214,6 +214,73 @@ function registerNetworkSchemas() {
   });
 
   NAF.schemas.add({
+    template: "#artwork",
+    components: [
+      // TODO: Optimize checking mediaOptions with requiresNetworkUpdate.
+      "artwork",
+      {
+        component: "media-video",
+        property: "time"
+      },
+      {
+        component: "media-video",
+        property: "videoPaused"
+      },
+      {
+        component: "media-pdf",
+        property: "index"
+      }
+    ],
+    nonAuthorizedComponents: [
+      {
+        component: "media-video",
+        property: "time"
+      },
+      {
+        component: "media-video",
+        property: "videoPaused"
+      },
+      {
+        component: "media-pager",
+        property: "index"
+      }
+    ]
+  });
+
+  NAF.schemas.add({
+    template: "#static-artwork",
+    components: [
+      "artwork",
+      {
+        component: "media-video",
+        property: "time"
+      },
+      {
+        component: "media-video",
+        property: "videoPaused"
+      },
+      {
+        component: "media-pdf",
+        property: "index"
+      }
+    ],
+    nonAuthorizedComponents: [
+      {
+        component: "media-video",
+        property: "time"
+      },
+      {
+        component: "media-video",
+        property: "videoPaused"
+      },
+      {
+        component: "media-pager",
+        property: "index"
+      }
+    ]
+  });
+
+  NAF.schemas.add({
     template: "#interactable-drawing",
     components: [
       {

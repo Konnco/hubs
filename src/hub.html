@@ -269,6 +269,40 @@
                 </a-entity>
             </template>
 
+            <template id="static-artwork">
+                <a-entity
+                    class="interactable"
+                    body-helper="type: static; mass: 1; collisionFilterGroup: 1; collisionFilterMask: 1;"
+                    is-remote-hover-target
+                    position-at-box-shape-border__freeze="target:.freeze-menu;"
+                    tags="isStatic: true; togglesHoveredActionSet: true; inspectable: true;"
+                >
+                    <a-entity class="freeze-menu" visibility-while-frozen="withinDistance: 100;">
+                        <a-entity mixin="rounded-text-button "
+                            is-remote-hover-target
+                            tags="singleActionButton: true;"
+                            artwork-show-detail-button
+                            position="0 -0.6 0.001"
+                        >
+                            <a-entity text="value:Show Detail; width:1.75; align:center;"
+                                text-raycast-hack
+                                position="0 0 0.02">
+                            </a-entity>
+                        </a-entity>
+                    </a-entity>
+                </a-entity>
+            </template>
+
+            <template id="artwork-hover-menu">
+                <a-entity class="ui interactable-ui hover-container" visible="false">
+                    <a-entity mixin="rounded-text-button "
+                    is-remote-hover-target tags="singleActionButton: true;
+                    isHoverMenuChild: true;" scale="0.8 0.8 0.8" artwork-show-detail-button position="0 0.125 0.001">
+                        <a-entity text="value:Show Detail; width:1.5; align:center;" text-raycast-hack position="0 0 0.02"></a-entity>
+                    </a-entity>
+                </a-entity>
+            </template>
+
             <template id="interactable-media">
                 <a-entity
                     class="interactable"
@@ -894,9 +928,6 @@
                     is-remote-hover-target tags="singleActionButton: true;
                     isHoverMenuChild: true;" scale="0.8 0.8 0.8" refresh-media-button position="0 0.125 0.001">
                         <a-entity text="value:refresh; width:1.5; align:center;" text-raycast-hack position="0 0 0.02"></a-entity>
-                    </a-entity>
-                    <a-entity mixin="rounded-text-action-button ui" is-remote-hover-target tags="singleActionButton: true; isHoverMenuChild: true;" open-media-button position="0 -0.125 0.001">
-                        <a-entity text="value:open link; width:1.5; align:center;" text-raycast-hack position="0 0 0.02"></a-entity>
                     </a-entity>
                 </a-entity>
             </template>

@@ -40,6 +40,7 @@ import AvatarUrlDialog from "./avatar-url-dialog.js";
 import InviteDialog from "./invite-dialog.js";
 import InviteTeamDialog from "./invite-team-dialog.js";
 import LinkDialog from "./link-dialog.js";
+import ArtworkDetail from "./artwork-detail.js";
 import InAppBrowserDialog from "./in-app-browser-dialog.js";
 import SignInDialog from "./sign-in-dialog.js";
 import RoomSettingsDialog from "./room-settings-dialog.js";
@@ -2023,6 +2024,7 @@ class UIRoot extends Component {
                     onClose={() => this.setState({ showShareDialog: false })}
                   />
                 )}
+                <ArtworkDetail />
               </div>
             )}
             <StateRoute

@@ -3,6 +3,7 @@ import { SOUND_MEDIA_LOADING } from "../systems/sound-effects-system";
 AFRAME.registerComponent("local-refresh-media-button", {
   init() {
     this.onClick = async () => {
+      console.log(this.targetEl);
       if (this.targetEl) {
         this.targetEl.components["media-loader"] &&
           this.targetEl.components["media-loader"].update(this.targetEl.components["media-loader"].data, true);
