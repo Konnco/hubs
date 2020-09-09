@@ -158,13 +158,8 @@ const fetchContentType = url => {
 // MAIN REGISTER
 AFRAME.registerComponent("artwork", {
   schema: {
-    src: { type: "string" },
-    contentType: { type: "string" },
-    width: { type: "number" },
-    height: { type: "number" },
-    title: { type: "string" }
+    src: { type: "string" }
   },
-
   remove() {
     if (this.data.batch && this.mesh) {
       this.el.sceneEl.systems["hubs-systems"].batchManagerSystem.removeObject(this.mesh);
@@ -176,8 +171,16 @@ AFRAME.registerComponent("artwork", {
   },
 
   async update(oldData) {
-    console.log(this.data);
+    // console.log(this.data);
     // Added Link Hover Menu
+    console.log(this);
+    // this.el.setAttribute("networked", {
+    //   template: "#static-artwork",
+    //   owner: "scene",
+    //   persistent: true,
+    //   networkId: this.components.networked.id
+    // });
+
     this.el.setAttribute("hover-menu__link", { template: "#artwork-hover-menu", isFlat: true });
 
     let texture;

@@ -14,10 +14,12 @@ export default class ArtworkDetail extends Component {
 
   componentDidMount() {
     window.addEventListener("view-artwork", this.updateData);
+    window.addEventListener("hide-artwork", this.closeHandler);
   }
 
   componentWillUnmount() {
     window.removeEventListener("view-artwork", this.updateData);
+    window.removeEventListener("hide-artwork", this.closeHandler);
   }
 
   updateData(data) {
