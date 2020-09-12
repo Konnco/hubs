@@ -424,13 +424,20 @@ AFRAME.registerComponent("artwork-show-detail-button", {
       });
   },
   play() {
-    this.el.object3D.addEventListener("hovered", this.onClick);
-    this.el.object3D.addEventListener("unhovered", this.onUnClick);
-    console.log(this.el.object3D);
+    if (window.innerWidth < 768) {
+      this.el.object3D.addEventListener("hovered", this.onClick);
+      // this.el.object3D.addEventListener("unhovered", this.onUnClick);
+    } else {
+      this.el.object3D.addEventListener("interact", this.onClick);
+    }
   },
 
   pause() {
-    this.el.object3D.removeEventListener("hovered", this.onClick);
-    this.el.object3D.removeEventListener("unhovered", this.onUnClick);
+    if (window.innerWidth < 768) {
+      this.el.object3D.removeEventListener("hovered", this.onClick);
+      // this.el.object3D.removeEventListener("unhovered", this.onUnClick);
+    } else {
+      this.el.object3D.removeEventListener("interact", this.onClick);
+    }
   }
 });
